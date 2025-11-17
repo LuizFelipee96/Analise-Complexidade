@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_774dc4348b20f104f6dc84f90b8d69fe {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+            <div style="position: fixed; 
+                        top: 10px; right: 10px; 
+                        width: 300px; 
+                        background-color: white; 
+                        border: 2px solid gray; 
+                        z-index: 9999; 
+                        padding: 10px;
+                        border-radius: 5px;">
+                <h4>Rota FAFIRE → FNR</h4>
+                <b>Distância:</b> 9.42 km<br>
+                <b>Tempo:</b> 17.8 min<br>
+                <b>Uber Carro:</b> R$ 29.11<br>
+                <b>Uber Moto:</b> R$ 21.33<br>
+                <b>Emissões CO₂:</b> 1.88 kg<br>
+                <b>Congestionamento:</b> 0.86x<br>
+            </div>
+            
+    
+            <div class="folium-map" id="map_774dc4348b20f104f6dc84f90b8d69fe" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_774dc4348b20f104f6dc84f90b8d69fe = L.map(
+                "map_774dc4348b20f104f6dc84f90b8d69fe",
+                {
+                    center: [-8.058243427211693, -34.889299733441696],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 13,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_43d4c3d2ef8f5f476f8834d56e44ebd3 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_43d4c3d2ef8f5f476f8834d56e44ebd3.addTo(map_774dc4348b20f104f6dc84f90b8d69fe);
+        
+    
+            var marker_81e54c04413aedbe86ce9786b2bb9dd4 = L.marker(
+                [-8.058243427211693, -34.889299733441696],
+                {
+}
+            ).addTo(map_774dc4348b20f104f6dc84f90b8d69fe);
+        
+    
+            var icon_2c79515453fd969a7c1dfab704fc0443 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "play",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_0dcf68785dc30d1c56d11e5851c851e3 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_6947329c68fc7db62997d3887188e96b = $(`<div id="html_6947329c68fc7db62997d3887188e96b" style="width: 100.0%; height: 100.0%;"><b>Origem: FAFIRE</b></div>`)[0];
+                popup_0dcf68785dc30d1c56d11e5851c851e3.setContent(html_6947329c68fc7db62997d3887188e96b);
+            
+        
+
+        marker_81e54c04413aedbe86ce9786b2bb9dd4.bindPopup(popup_0dcf68785dc30d1c56d11e5851c851e3)
+        ;
+
+        
+    
+    
+                marker_81e54c04413aedbe86ce9786b2bb9dd4.setIcon(icon_2c79515453fd969a7c1dfab704fc0443);
+            
+    
+            var marker_9b5d37e4c4003d263175f24c9b2a02e9 = L.marker(
+                [-8.117489441268411, -34.90021665767048],
+                {
+}
+            ).addTo(map_774dc4348b20f104f6dc84f90b8d69fe);
+        
+    
+            var icon_1999b4f94ab6185e1ea51411b460bc16 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "stop",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_74360cad4101013668017336718eafcf = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_e8652ce007b6c5d1ec2492ad3fa12a7f = $(`<div id="html_e8652ce007b6c5d1ec2492ad3fa12a7f" style="width: 100.0%; height: 100.0%;"><b>Destino: FNR</b></div>`)[0];
+                popup_74360cad4101013668017336718eafcf.setContent(html_e8652ce007b6c5d1ec2492ad3fa12a7f);
+            
+        
+
+        marker_9b5d37e4c4003d263175f24c9b2a02e9.bindPopup(popup_74360cad4101013668017336718eafcf)
+        ;
+
+        
+    
+    
+                marker_9b5d37e4c4003d263175f24c9b2a02e9.setIcon(icon_1999b4f94ab6185e1ea51411b460bc16);
+            
+    
+            var poly_line_54dc5f70885a5d59a74b3898f32bfb34 = L.polyline(
+                [[-8.05824, -34.88931], [-8.05828, -34.8893], [-8.05834, -34.88923], [-8.05863, -34.88864], [-8.05863, -34.8886], [-8.05845, -34.88848], [-8.05893, -34.88765], [-8.05952, -34.88665], [-8.05963, -34.88645], [-8.05989, -34.88661], [-8.06073, -34.88714], [-8.06138, -34.88755], [-8.06203, -34.88794], [-8.06185, -34.88818], [-8.06132, -34.88883], [-8.06095, -34.88931], [-8.06061, -34.88971], [-8.06046, -34.88992], [-8.0604, -34.89005], [-8.06042, -34.89039], [-8.06046, -34.89124], [-8.06049, -34.89135], [-8.06061, -34.89148], [-8.06108, -34.89198], [-8.0612, -34.89208], [-8.06208, -34.89265], [-8.06268, -34.89309], [-8.06294, -34.8933], [-8.06302, -34.89345], [-8.06301, -34.89347], [-8.063, -34.89351], [-8.06302, -34.8936], [-8.06306, -34.89371], [-8.06307, -34.89383], [-8.06291, -34.89465], [-8.06282, -34.89527], [-8.06245, -34.89725], [-8.06234, -34.89774], [-8.06291, -34.89769], [-8.06476, -34.89746], [-8.06524, -34.89724], [-8.06571, -34.89715], [-8.06665, -34.89703], [-8.06872, -34.89675], [-8.06948, -34.89662], [-8.06979, -34.89652], [-8.07027, -34.89631], [-8.07074, -34.89602], [-8.07084, -34.89592], [-8.0713, -34.89552], [-8.07158, -34.89529], [-8.07244, -34.89455], [-8.07278, -34.89428], [-8.07296, -34.89415], [-8.07313, -34.89407], [-8.07355, -34.89392], [-8.07492, -34.89346], [-8.07652, -34.89294], [-8.07785, -34.89244], [-8.07839, -34.89224], [-8.07888, -34.89212], [-8.07927, -34.89209], [-8.07954, -34.8921], [-8.08007, -34.89216], [-8.08033, -34.8922], [-8.08077, -34.89222], [-8.08096, -34.89221], [-8.08113, -34.89215], [-8.08136, -34.89203], [-8.08152, -34.8919], [-8.08224, -34.89128], [-8.08294, -34.89069], [-8.08335, -34.89028], [-8.08366, -34.89001], [-8.08398, -34.88976], [-8.08439, -34.8894], [-8.08491, -34.88895], [-8.08588, -34.88803], [-8.0863, -34.88761], [-8.08664, -34.88728], [-8.08768, -34.88632], [-8.08797, -34.88602], [-8.08868, -34.88532], [-8.0893, -34.88471], [-8.08947, -34.88458], [-8.08968, -34.88453], [-8.09, -34.8845], [-8.09025, -34.88455], [-8.09105, -34.8848], [-8.09178, -34.88498], [-8.09293, -34.8853], [-8.09307, -34.8854], [-8.09339, -34.88548], [-8.09403, -34.88569], [-8.09504, -34.8859], [-8.09585, -34.88603], [-8.09683, -34.88623], [-8.09783, -34.88639], [-8.09844, -34.88651], [-8.09875, -34.88662], [-8.09932, -34.88689], [-8.10191, -34.88809], [-8.1035, -34.88881], [-8.10469, -34.88936], [-8.10573, -34.88986], [-8.10618, -34.89008], [-8.108, -34.89088], [-8.10922, -34.89157], [-8.10992, -34.89201], [-8.1122, -34.89341], [-8.11288, -34.89382], [-8.11388, -34.89444], [-8.11574, -34.89556], [-8.11736, -34.89656], [-8.11905, -34.89761], [-8.11791, -34.90004], [-8.11777, -34.90035]],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "blue", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.7, "smoothFactor": 1.0, "stroke": true, "weight": 5}
+            ).addTo(map_774dc4348b20f104f6dc84f90b8d69fe);
+        
+</script>
+</html>
