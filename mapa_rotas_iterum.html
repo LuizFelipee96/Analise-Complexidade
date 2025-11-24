@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_7cd1d2b8a177099b72d30219f9519353 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+        <div style="position: fixed; 
+                    top: 10px; right: 10px; 
+                    width: 300px; 
+                    background-color: white; 
+                    border: 2px solid gray; 
+                    z-index: 9999; 
+                    padding: 10px;
+                    border-radius: 5px;">
+            <h4>SISTEMA ITERUM</h4>
+            <b>Rotas Calculadas:</b> 6<br>
+            <b>Data:</b> 17/11/2025 09:47<br>
+            <hr>
+            <b>Legenda:</b><br>
+        <span style="color: blue;">━━</span> ⭐ Mais Rápida<br><span style="color: red;">━━</span> ⭐ Mais Econômica<br><span style="color: green;">━━</span> Menos Caminhada<br><span style="color: purple;">━━</span> ⭐ Mais Sustentável<br><span style="color: orange;">━━</span> ⭐ Equilibrada<br><span style="color: darkred;">━━</span> ⭐ Menos Transferências<br></div>
+    
+            <div class="folium-map" id="map_7cd1d2b8a177099b72d30219f9519353" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_7cd1d2b8a177099b72d30219f9519353 = L.map(
+                "map_7cd1d2b8a177099b72d30219f9519353",
+                {
+                    center: [-8.058243, -34.889299],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 13,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_95281b6c49f6ce21fb1bd064dfe51b51 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_95281b6c49f6ce21fb1bd064dfe51b51.addTo(map_7cd1d2b8a177099b72d30219f9519353);
+        
+    
+            var marker_d0fb1f1f69648e72e248e0ad88704913 = L.marker(
+                [-8.058243, -34.889299],
+                {
+}
+            ).addTo(map_7cd1d2b8a177099b72d30219f9519353);
+        
+    
+            var icon_eda3ffa5080936f41bc74efb3874c842 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "play",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_6c738d8bfe99330fee01f03734769eeb = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_4d54b061ef5d625449dc292e1be9e5b4 = $(`<div id="html_4d54b061ef5d625449dc292e1be9e5b4" style="width: 100.0%; height: 100.0%;"><b>ORIGEM: FAFIRE</b></div>`)[0];
+                popup_6c738d8bfe99330fee01f03734769eeb.setContent(html_4d54b061ef5d625449dc292e1be9e5b4);
+            
+        
+
+        marker_d0fb1f1f69648e72e248e0ad88704913.bindPopup(popup_6c738d8bfe99330fee01f03734769eeb)
+        ;
+
+        
+    
+    
+                marker_d0fb1f1f69648e72e248e0ad88704913.setIcon(icon_eda3ffa5080936f41bc74efb3874c842);
+            
+    
+            var marker_e11a0da3316b3f9750917fea0681bc76 = L.marker(
+                [-8.117489, -34.900216],
+                {
+}
+            ).addTo(map_7cd1d2b8a177099b72d30219f9519353);
+        
+    
+            var icon_767a89dc7e357894fc64f303838a3a5b = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "stop",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_e7a8742caf29001f69355a4e0b12ad62 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_eaae061b70ee13bed1a2aff40b404902 = $(`<div id="html_eaae061b70ee13bed1a2aff40b404902" style="width: 100.0%; height: 100.0%;"><b>DESTINO: Nova Roma</b></div>`)[0];
+                popup_e7a8742caf29001f69355a4e0b12ad62.setContent(html_eaae061b70ee13bed1a2aff40b404902);
+            
+        
+
+        marker_e11a0da3316b3f9750917fea0681bc76.bindPopup(popup_e7a8742caf29001f69355a4e0b12ad62)
+        ;
+
+        
+    
+    
+                marker_e11a0da3316b3f9750917fea0681bc76.setIcon(icon_767a89dc7e357894fc64f303838a3a5b);
+            
+    
+            var poly_line_077562e8c884edbd23a6d2d6d169d9aa = L.polyline(
+                [[-8.058243, -34.889299], [-8.117489, -34.900216]],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "blue", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.7, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_7cd1d2b8a177099b72d30219f9519353);
+        
+    
+        var popup_b6a49e3f8072a727f33e8744575587b7 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_bfd763d2fcb788d62d655766384a604b = $(`<div id="html_bfd763d2fcb788d62d655766384a604b" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px">                 <h4>Rota 1: Mais Rápida</h4>                 <b>Tempo:</b> 99 min<br>                 <b>Custo:</b> R$ 24.60<br>                 <b>Distância:</b> 8.06 km<br>                 <b>Emissões:</b> 0.31 kg CO₂<br>                 <b>Transferências:</b> 8<br>                 <b>Linhas:</b> 11, 13<br>                 <b style="color: gold;">⭐ Pareto Optimal</b>             </div>             </div>`)[0];
+                popup_b6a49e3f8072a727f33e8744575587b7.setContent(html_bfd763d2fcb788d62d655766384a604b);
+            
+        
+
+        poly_line_077562e8c884edbd23a6d2d6d169d9aa.bindPopup(popup_b6a49e3f8072a727f33e8744575587b7)
+        ;
+
+        
+    
+    
+            var poly_line_675d96d4edc38963681bfd3bb479b2d3 = L.polyline(
+                [[-8.058243, -34.889299], [-8.117489, -34.900216]],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "red", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.7, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_7cd1d2b8a177099b72d30219f9519353);
+        
+    
+        var popup_7564338a693436837d42cd6a99129e7f = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_6febb5445ca4cf9547e6ee9b871c4858 = $(`<div id="html_6febb5445ca4cf9547e6ee9b871c4858" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px">                 <h4>Rota 2: Mais Econômica</h4>                 <b>Tempo:</b> 102 min<br>                 <b>Custo:</b> R$ 12.30<br>                 <b>Distância:</b> 7.33 km<br>                 <b>Emissões:</b> 0.08 kg CO₂<br>                 <b>Transferências:</b> 6<br>                 <b>Linhas:</b> 11, 13<br>                 <b style="color: gold;">⭐ Pareto Optimal</b>             </div>             </div>`)[0];
+                popup_7564338a693436837d42cd6a99129e7f.setContent(html_6febb5445ca4cf9547e6ee9b871c4858);
+            
+        
+
+        poly_line_675d96d4edc38963681bfd3bb479b2d3.bindPopup(popup_7564338a693436837d42cd6a99129e7f)
+        ;
+
+        
+    
+    
+            var poly_line_f6ae7fa14ca36d1df18a381123fa4e4e = L.polyline(
+                [[-8.058243, -34.889299], [-8.117489, -34.900216]],
+                {"bubblingMouseEvents": true, "color": "green", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "green", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.7, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_7cd1d2b8a177099b72d30219f9519353);
+        
+    
+        var popup_a6f3b04101a235093f128e177362a34e = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_f72bedbbac43e8b38bc4e472395581aa = $(`<div id="html_f72bedbbac43e8b38bc4e472395581aa" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px">                 <h4>Rota 3: Menos Caminhada</h4>                 <b>Tempo:</b> 131 min<br>                 <b>Custo:</b> R$ 82.00<br>                 <b>Distância:</b> 9.03 km<br>                 <b>Emissões:</b> 0.72 kg CO₂<br>                 <b>Transferências:</b> 2<br>                 <b>Linhas:</b> 101, 11, 13, 14, 166, 170, 39, 521<br>                              </div>             </div>`)[0];
+                popup_a6f3b04101a235093f128e177362a34e.setContent(html_f72bedbbac43e8b38bc4e472395581aa);
+            
+        
+
+        poly_line_f6ae7fa14ca36d1df18a381123fa4e4e.bindPopup(popup_a6f3b04101a235093f128e177362a34e)
+        ;
+
+        
+    
+    
+            var poly_line_11975b5a9fe967c0b46961b1da2a0df1 = L.polyline(
+                [[-8.058243, -34.889299], [-8.117489, -34.900216]],
+                {"bubblingMouseEvents": true, "color": "purple", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "purple", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.7, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_7cd1d2b8a177099b72d30219f9519353);
+        
+    
+        var popup_79ecaea7546b441a2f677a0431884431 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_425921cd5cbaf0fbb91ae956be364e85 = $(`<div id="html_425921cd5cbaf0fbb91ae956be364e85" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px">                 <h4>Rota 4: Mais Sustentável</h4>                 <b>Tempo:</b> 102 min<br>                 <b>Custo:</b> R$ 12.30<br>                 <b>Distância:</b> 7.33 km<br>                 <b>Emissões:</b> 0.08 kg CO₂<br>                 <b>Transferências:</b> 6<br>                 <b>Linhas:</b> 11, 13<br>                 <b style="color: gold;">⭐ Pareto Optimal</b>             </div>             </div>`)[0];
+                popup_79ecaea7546b441a2f677a0431884431.setContent(html_425921cd5cbaf0fbb91ae956be364e85);
+            
+        
+
+        poly_line_11975b5a9fe967c0b46961b1da2a0df1.bindPopup(popup_79ecaea7546b441a2f677a0431884431)
+        ;
+
+        
+    
+    
+            var poly_line_bbbaa6dbd5247ca135299a3a5ac93225 = L.polyline(
+                [[-8.058243, -34.889299], [-8.117489, -34.900216]],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "orange", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.7, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_7cd1d2b8a177099b72d30219f9519353);
+        
+    
+        var popup_5522d8f1b8c51cf2903e025b2b225732 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d57dc3fbc3c8964bddb957d4eafe9998 = $(`<div id="html_d57dc3fbc3c8964bddb957d4eafe9998" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px">                 <h4>Rota 5: Equilibrada</h4>                 <b>Tempo:</b> 102 min<br>                 <b>Custo:</b> R$ 12.30<br>                 <b>Distância:</b> 7.33 km<br>                 <b>Emissões:</b> 0.08 kg CO₂<br>                 <b>Transferências:</b> 6<br>                 <b>Linhas:</b> 11, 13<br>                 <b style="color: gold;">⭐ Pareto Optimal</b>             </div>             </div>`)[0];
+                popup_5522d8f1b8c51cf2903e025b2b225732.setContent(html_d57dc3fbc3c8964bddb957d4eafe9998);
+            
+        
+
+        poly_line_bbbaa6dbd5247ca135299a3a5ac93225.bindPopup(popup_5522d8f1b8c51cf2903e025b2b225732)
+        ;
+
+        
+    
+    
+            var poly_line_a8266d69f32997a85b646b0166de172a = L.polyline(
+                [[-8.058243, -34.889299], [-8.117489, -34.900216]],
+                {"bubblingMouseEvents": true, "color": "darkred", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "darkred", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.7, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(map_7cd1d2b8a177099b72d30219f9519353);
+        
+    
+        var popup_144043e4f745b3e925982b8e0ef15157 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_fd52d7fb4d6b1b6447929599d6d09508 = $(`<div id="html_fd52d7fb4d6b1b6447929599d6d09508" style="width: 100.0%; height: 100.0%;">             <div style="width: 250px">                 <h4>Rota 6: Menos Transferências</h4>                 <b>Tempo:</b> 102 min<br>                 <b>Custo:</b> R$ 12.30<br>                 <b>Distância:</b> 7.33 km<br>                 <b>Emissões:</b> 0.08 kg CO₂<br>                 <b>Transferências:</b> 6<br>                 <b>Linhas:</b> 11, 13<br>                 <b style="color: gold;">⭐ Pareto Optimal</b>             </div>             </div>`)[0];
+                popup_144043e4f745b3e925982b8e0ef15157.setContent(html_fd52d7fb4d6b1b6447929599d6d09508);
+            
+        
+
+        poly_line_a8266d69f32997a85b646b0166de172a.bindPopup(popup_144043e4f745b3e925982b8e0ef15157)
+        ;
+
+        
+    
+</script>
+</html>

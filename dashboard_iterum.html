@@ -1,0 +1,1335 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ITERUM Dashboard - Análise de Rotas</title>
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" 
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" 
+          crossorigin=""/>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        header {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        h1 {
+            color: #667eea;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #666;
+            font-size: 1.1em;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .card h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .stat-card {
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .stat-value {
+            font-size: 3em;
+            font-weight: bold;
+            color: #667eea;
+            margin: 10px 0;
+        }
+        
+        .stat-label {
+            color: #666;
+            font-size: 1.1em;
+        }
+        
+        #map {
+            height: 600px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 400px;
+            margin: 20px 0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background: #667eea;
+            color: white;
+            font-weight: bold;
+        }
+        
+        tr:hover {
+            background: #f5f5f5;
+        }
+        
+        .pareto-badge {
+            background: gold;
+            color: #333;
+            padding: 4px 8px;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+        
+        .route-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .route-btn:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+        }
+        
+        .route-detail {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 10px;
+        }
+        
+        .route-detail.active {
+            display: block;
+        }
+        
+        .segment {
+            padding: 15px;
+            margin: 10px 0;
+            background: white;
+            border-left: 4px solid #667eea;
+            border-radius: 5px;
+        }
+        
+        .segment-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .segment-icon {
+            font-size: 1.5em;
+        }
+        
+        .segment-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: #666;
+        }
+        
+        .legend {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 5px 0;
+        }
+        
+        .legend-color {
+            width: 30px;
+            height: 4px;
+            border-radius: 2px;
+        }
+        
+        .footer {
+            text-align: center;
+            color: white;
+            margin-top: 40px;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-route"></i> SISTEMA ITERUM</h1>
+            <p class="subtitle">Análise Multi-Modal de Rotas Urbanas - Recife/PE</p>
+            <p style="margin-top: 10px; color: #999;">
+                <i class="far fa-calendar"></i> 17/11/2025 10:05
+            </p>
+        </header>
+        
+        <!-- Estatísticas Rápidas -->
+        <div class="grid">
+            <div class="card stat-card">
+                <i class="fas fa-route" style="font-size: 2em; color: #667eea;"></i>
+                <div class="stat-value">6</div>
+                <div class="stat-label">Rotas Calculadas</div>
+            </div>
+            
+            <div class="card stat-card">
+                <i class="fas fa-star" style="font-size: 2em; color: gold;"></i>
+                <div class="stat-value">5</div>
+                <div class="stat-label">Pareto Optimal</div>
+            </div>
+            
+            <div class="card stat-card">
+                <i class="fas fa-clock" style="font-size: 2em; color: #667eea;"></i>
+                <div class="stat-value">99</div>
+                <div class="stat-label">Menor Tempo (min)</div>
+            </div>
+            
+            <div class="card stat-card">
+                <i class="fas fa-dollar-sign" style="font-size: 2em; color: #667eea;"></i>
+                <div class="stat-value">12.30</div>
+                <div class="stat-label">Menor Custo (R$)</div>
+            </div>
+        </div>
+        
+        <!-- Mapa -->
+        <div class="card">
+            <h2><i class="fas fa-map-marked-alt"></i> Visualização de Rotas</h2>
+            <div id="map"></div>
+            <div class="legend">
+                <h3>Legenda</h3>
+                <div id="legend-items"></div>
+            </div>
+        </div>
+        
+        <!-- Gráficos -->
+        <div class="grid">
+            <div class="card">
+                <h2><i class="fas fa-chart-bar"></i> Comparação de Tempo</h2>
+                <div class="chart-container">
+                    <canvas id="tempoChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2><i class="fas fa-chart-pie"></i> Comparação de Custo</h2>
+                <div class="chart-container">
+                    <canvas id="custoChart"></canvas>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2><i class="fas fa-chart-line"></i> Análise Multi-Critério</h2>
+            <div class="chart-container">
+                <canvas id="multiChart"></canvas>
+            </div>
+        </div>
+        
+        <!-- Tabela de Rotas -->
+        <div class="card">
+            <h2><i class="fas fa-table"></i> Rotas Detalhadas</h2>
+            <table id="routesTable">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Critério</th>
+                        <th>Tempo</th>
+                        <th>Custo</th>
+                        <th>Distância</th>
+                        <th>Emissões</th>
+                        <th>Pareto</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="routesTableBody"></tbody>
+            </table>
+            
+            <div id="routeDetails"></div>
+        </div>
+        
+        <footer class="footer">
+            <p><strong>SISTEMA ITERUM</strong> - Otimização de Rotas Multi-Modais</p>
+            <p>Desenvolvido para análise acadêmica de mobilidade urbana</p>
+        </footer>
+    </div>
+    
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
+    
+    <script>
+        console.log('🚀 Iniciando ITERUM Dashboard...');
+        
+        // Dados das rotas
+        const rotas = [
+  {
+    "criterio": "Mais Rápida",
+    "caminho_ids": [
+      "temp_fafire",
+      "stop_16871",
+      "stop_6016",
+      "stop_5848",
+      "stop_5849",
+      "stop_5739",
+      "stop_358",
+      "stop_476",
+      "stop_477",
+      "stop_363",
+      "stop_364",
+      "stop_366",
+      "stop_367",
+      "stop_515",
+      "temp_nova_roma"
+    ],
+    "num_vertices": 15,
+    "tempo_min": 99.13121577981698,
+    "custo_reais": 24.6,
+    "distancia_km": 8.058392406378195,
+    "emissoes_kg": 0.30938409783135384,
+    "transferencias": 8,
+    "modais_usados": [
+      "caminhada",
+      "onibus"
+    ],
+    "linhas_onibus": [
+      "11",
+      "13"
+    ],
+    "num_embarques_onibus": 4,
+    "num_trechos_caminhada": 5,
+    "segmentos": [
+      {
+        "origem": "FAFIRE",
+        "destino": "180168",
+        "modal": "caminhada",
+        "linha": null,
+        "distancia_m": 1257.6408436373886,
+        "tempo_min": 16.768544581831847,
+        "custo_reais": 0.0,
+        "emissoes_kg": 0.0
+      },
+      {
+        "origem": "180168",
+        "destino": "010001",
+        "modal": "onibus",
+        "linha": "11",
+        "distancia_m": 2828.8410334049922,
+        "tempo_min": 9.633333333333383,
+        "custo_reais": 12.299999999999999,
+        "emissoes_kg": 0.22630728267239936
+      },
+      {
+        "origem": "010001",
+        "destino": "010129",
+        "modal": "caminhada",
+        "linha": null,
+        "distancia_m": 752.5456740624113,
+        "tempo_min": 10.033942320832152,
+        "custo_reais": 0.0,
+        "emissoes_kg": 0.0
+      },
+      {
+        "origem": "010129",
+        "destino": "010130",
+        "modal": "onibus",
+        "linha": "13",
+        "distancia_m": 252.12597816703672,
+        "tempo_min": 1.0,
+        "custo_reais": 4.1,
+        "emissoes_kg": 0.02017007825336294
+      },
+      {
+        "origem": "010130",
+        "destino": "010006",
+        "modal": "caminhada",
+        "linha": null,
+        "distancia_m": 637.732440866892,
+        "tempo_min": 8.503099211558562,
+        "custo_reais": 0.0,
+        "emissoes_kg": 0.0
+      },
+      {
+        "origem": "010006",
+        "destino": "010007",
+        "modal": "onibus",
+        "linha": "11",
+        "distancia_m": 453.8203221838364,
+        "tempo_min": 1.5166666666667084,
+        "custo_reais": 4.1,
+        "emissoes_kg": 0.03630562577470692
+      },
+      {
+        "origem": "010007",
+        "destino": "010009",
+        "modal": "caminhada",
+        "linha": null,
+        "distancia_m": 769.4421246305828,
+        "tempo_min": 10.25922832840777,
+        "custo_reais": 0.0,
+        "emissoes_kg": 0.0
+      },
+      {
+        "origem": "010009",
+        "destino": "010010",
+        "modal": "onibus",
+        "linha": "11",
+        "distancia_m": 332.5138891360582,
+        "tempo_min": 1.099999999999966,
+        "custo_reais": 4.1,
+        "emissoes_kg": 0.026601111130884654
+      },
+      {
+        "origem": "010010",
+        "destino": "Faculdade Nova Roma",
+        "modal": "caminhada",
+        "linha": null,
+        "distancia_m": 773.7301002889947,
+        "tempo_min": 10.316401337186596,
+        "custo_reais": 0.0,
+        "emissoes_kg": 0.0
+      }
+    ],
+    "num_segmentos": 9,
+    "metricas_algoritmo": {
+      "comparacoes": 391628,
+      "vertices_visitados": 512,
+      "tempo_execucao_ms": 80.09099960327148,
+      "memoria_kb": 0.5234375
+    },
+    "tempo_calculo_total_s": 0.08019495010375977,
+    "rank_tempo": 1,
+    "rank_custo": 5,
+    "rank_emissoes": 5,
+    "pareto_optimal": true
+  },
+  {
+    "criterio": "Mais Econômica",
+    "caminho_ids": [
+      "temp_fafire",
+      "stop_5982",
+      "stop_6031",
+      "stop_5939",
+      "stop_5741",
+      "stop_469",
+      "stop_358",
+      "stop_476",
+      "stop_477",
+      "stop_363",
+      "stop_364",
+      "stop_366",
+      "stop_367",
+      "stop_515",
+      "temp_nova_roma"
+    ],
+    "num_vertices": 15,
+    "tempo_min": 102.45313367020515,
+    "custo_reais": 12.299999999999999,
+    "distancia_km": 7.326195214752318,
+    "emissoes_kg": 0.08307681515895451,
+    "transferencias": 6,
+    "modais_usados": [
+      "caminhada",
+      "onibus"
+    ],
+    "linhas_onibus": [
+      "11",
+      "13"
+    ],
+    "num_embarques_onibus": 3,
+    "num_trechos_caminhada": 4,
+    "segmentos": [
+      {
+        "origem": "FAFIRE",
+        "destino": "010129",
+        "modal": "caminhada",
+        "linha": null,
+        "distancia_m": 4106.830359478916,
+        "tempo_min": 54.75773812638555,
+        "custo_reais": 0.0,
+        "emissoes_kg": 0.0
+      },
+      {
+        "origem": "010129",
+        "destino": "010130",
+        "modal": "onibus",
+        "linha": "13",
+        "distancia_m": 252.12597816703672,
+        "tempo_min": 1.0,
+        "custo_reais": 4.1,
+        "emissoes_kg": 0.02017007825336294
+      },
+      {
+        "origem": "010130",
+        "destino": "010006",
+        "modal": "caminhada",
+        "linha": null,
+        "distancia_m": 637.732440866892,
+        "tempo_min": 8.503099211558562,
+        "custo_reais": 0.0,
+        "emissoes_kg": 0.0
+      },
+      {
+        "origem": "010006",
+        "destino": "010007",
+        "modal": "onibus",
+        "linha": "11",
+        "distancia_m": 453.8203221838364,
+        "tempo_min": 1.5166666666667084,
+        "custo_reais": 4.1,
+        "emissoes_kg": 0.03630562577470692
+      },
+      {
+        "origem": "010007",
+        "destino": "010009",
+        "modal": "caminhada",
+        "linha": null,
+        "distancia_m": 769.4421246305828,
+        "tempo_min": 10.25922832840777,
+        "custo_reais": 0.0,
+        "emissoes_kg": 0.0
+      },
+      {
+        "origem": "010009",
+        "destino": "010010",
+        "modal": "onibus",
+        "linha": "11",
+        "distancia_m": 332.5138891360582,
+        "tempo_min": 1.099999999999966,
+        "custo_reais": 4.1,
+        "emissoes_kg": 0.026601111130884654
+      },
+      {
+        "origem": "010010",
+        "destino": "Faculdade Nova Roma",
+        "modal": "caminhada",
+        "linha": null,
+        "distancia_m": 773.7301002889947,
+        "tempo_min": 10.316401337186596,
+        "custo_reais": 0.0,
+        "emissoes_kg": 0.0
+      }
+    ],
+    "num_segmentos": 7,
+    "metricas_algoritmo": {
+      "comparacoes": 394870,
+      "vertices_visitados": 525,
+      "tempo_execucao_ms": 89.49875831604004,
+      "memoria_kb": 0.5234375
+    },
+    "tempo_calculo_total_s": 0.08959174156188965,
+    "rank_tempo": 2,
+    "rank_custo": 1,
+    "rank_emissoes": 1,
+    "pareto_optimal": true
+  },
+  {
+    "criterio": "Menos Caminhada",
+    "caminho_ids": [
+      "temp_fafire",
+      "stop_5982",
+      "stop_5984",
+      "stop_5985",
+      "stop_5820",
+      "stop_5824",
+      "stop_5825",
+      "stop_5929",
+      "stop_5735",
+      "stop_6089",
+      "stop_358",
+      "stop_359",
+      "stop_360",
+      "stop_361",
+      "stop_362",
+      "stop_363",
+      "stop_364",
+      "stop_365",
+      "stop_366",
+      "stop_367",
+      "stop_368",
+      "stop_524",
+      "temp_nova_roma"
+    ],
+    "num_vertices": 23,
+    "tempo_min": 131.3702770014522,
+    "custo_reais": 81.99999999999999,
+    "distancia_km": 9.02903775824521,
+    "emissoes_kg": 0.7177013586509038,
+    "transferencias": 2,
+    "modais_usados": [
+      "caminhada",
+      "onibus"
+    ],
+    "linhas_onibus": [
+      "101",
+      "11",
+      "13",
+      "14",
+      "166",
+      "170",
+      "39",
+      "521"
+    ],
+    "num_embarques_onibus": 9,
+    "num_trechos_caminhada": 2,
+    "segmentos": [
+      {
+        "origem": "FAFIRE",
+        "destino": "180320",
+        "modal": "caminhada",
+        "linha": null,
+        "distancia_m": 24.190003523203284,
+        "tempo_min": 0.3225333803093771,
+        "custo_reais": 0,
+        "emissoes_kg": 0
+      },
+      {
+        "origem": "180320",
+        "destino": "180322",
+        "modal": "onibus",
+        "linha": "14",
+        "distancia_m": 262.53444109972025,
+        "tempo_min": 1,
+        "custo_reais": 4.1,
+        "emissoes_kg": 0.02100275528797762
+      },
+      {
+        "origem": "180322",
+        "destino": "180323",
+        "modal": "onibus",
+        "linha": "170",
+        "distancia_m": 416.6150242634616,
+        "tempo_min": 1,
+        "custo_reais": 4.1,
+        "emissoes_kg": 0.03332920194107693
+      },
+      {
+        "origem": "180323",
+        "destino": "180140",
+        "modal": "onibus",
+        "linha": "521",
+        "distancia_m": 415.71507147173526,
+        "tempo_min": 1.216666666666697,
+        "custo_reais": 4.1,
+        "emissoes_kg": 0.03325720571773882
+      },
+      {
+        "origem": "180140",
+        "destino": "180144",
+        "modal": "onibus",
+        "linha": "101",
+        "distancia_m": 235.15980295931897,
+        "tempo_min": 1,
+        "custo_reais": 4.1,
+        "emissoes_kg": 0.018812784236745518
+      },
+      {
+        "origem": "180144",
+        "destino": "180145",
+        "modal": "onibus",
+        "linha": "166",
+        "distancia_m": 420.74693601134857,
+        "tempo_min": 1,
+        "custo_reais": 4.1,
+        "emissoes_kg": 0.03365975488090788
+      },
+      {
+        "origem": "180145",
+        "destino": "180523",
+        "modal": "onibus",
+        "linha": "13",
+        "distancia_m": 248.50700172431453,
+        "tempo_min": 1.283333333333303,
+        "custo_reais": 4.1,
+        "emissoes_kg": 0.019880560137945164
+      },
+      {
+        "origem": "180523",
+        "destino": "180048",
+        "modal": "onibus",
+        "linha": "39",
+        "distancia_m": 306.67419934801353,
+        "tempo_min": 1.0166666666666515,
+        "custo_reais": 4.1,
+        "emissoes_kg": 0.024533935947841083
+      },
+      {
+        "origem": "180048",
+        "destino": "010001",
+        "modal": "onibus",
+        "linha": "14",
+        "distancia_m": 2496.0733111647496,
+        "tempo_min": 8.03333333333336,
+        "custo_reais": 8.2,
+        "emissoes_kg": 0.19968586489318002
+      },
+      {
+        "origem": "010001",
+        "destino": "010179",
+        "modal": "onibus",
+        "linha": "11",
+        "distancia_m": 4169.241195093635,
+        "tempo_min": 15.050000000000011,
+        "custo_reais": 45.10000000000001,
+        "emissoes_kg": 0.33353929560749074
+      },
+      {
+        "origem": "010179",
+        "destino": "Faculdade Nova Roma",
+        "modal": "caminhada",
+        "linha": null,
+        "distancia_m": 33.580771585710096,
+        "tempo_min": 0.44774362114280125,
+        "custo_reais": 0,
+        "emissoes_kg": 0
+      }
+    ],
+    "num_segmentos": 11,
+    "metricas_algoritmo": {
+      "comparacoes": 405562,
+      "vertices_visitados": 533,
+      "tempo_execucao_ms": 110.3353500366211,
+      "memoria_kb": 0.5234375
+    },
+    "tempo_calculo_total_s": 0.11050915718078613,
+    "rank_tempo": 6,
+    "rank_custo": 6,
+    "rank_emissoes": 6,
+    "pareto_optimal": false
+  },
+  {
+    "criterio": "Mais Sustentável",
+    "caminho_ids": [
+      "temp_fafire",
+      "stop_5982",
+      "stop_6031",
+      "stop_5939",
+      "stop_5741",
+      "stop_469",
+      "stop_358",
+      "stop_476",
+      "stop_477",
+      "stop_363",
+      "stop_364",
+      "stop_366",
+      "stop_367",
+      "stop_515",
+      "temp_nova_roma"
+    ],
+    "num_vertices": 15,
+    "tempo_min": 102.45313367020515,
+    "custo_reais": 12.299999999999999,
+    "distancia_km": 7.326195214752318,
+    "emissoes_kg": 0.08307681515895451,
+    "transferencias": 6,
+    "modais_usados": [
+      "caminhada",
+      "onibus"
+    ],
+    "linhas_onibus": [
+      "11",
+      "13"
+    ],
+    "num_embarques_onibus": 3,
+    "num_trechos_caminhada": 4,
+    "segmentos": [
+      {
+        "origem": "FAFIRE",
+        "destino": "010129",
+        "modal": "caminhada",
+        "linha": null,
+        "distancia_m": 4106.830359478916,
+        "tempo_min": 54.75773812638555,
+        "custo_reais": 0.0,
+        "emissoes_kg": 0.0
+      },
+      {
+        "origem": "010129",
+        "destino": "010130",
+        "modal": "onibus",
+        "linha": "13",
+        "distancia_m": 252.12597816703672,
+        "tempo_min": 1.0,
+        "custo_reais": 4.1,
+        "emissoes_kg": 0.02017007825336294
+      },
+      {
+        "origem": "010130",
+        "destino": "010006",
+        "modal": "caminhada",
+        "linha": null,
+        "distancia_m": 637.732440866892,
+        "tempo_min": 8.503099211558562,
+        "custo_reais": 0.0,
+        "emissoes_kg": 0.0
+      },
+      {
+        "origem": "010006",
+        "destino": "010007",
+        "modal": "onibus",
+        "linha": "11",
+        "distancia_m": 453.8203221838364,
+        "tempo_min": 1.5166666666667084,
+        "custo_reais": 4.1,
+        "emissoes_kg": 0.03630562577470692
+      },
+      {
+        "origem": "010007",
+        "destino": "010009",
+        "modal": "caminhada",
+        "linha": null,
+        "distancia_m": 769.4421246305828,
+        "tempo_min": 10.25922832840777,
+        "custo_reais": 0.0,
+        "emissoes_kg": 0.0
+      },
+      {
+        "origem": "010009",
+        "destino": "010010",
+        "modal": "onibus",
+        "linha": "11",
+        "distancia_m": 332.5138891360582,
+        "tempo_min": 1.099999999999966,
+        "custo_reais": 4.1,
+        "emissoes_kg": 0.026601111130884654
+      },
+      {
+        "origem": "010010",
+        "destino": "Faculdade Nova Roma",
+        "modal": "caminhada",
+        "linha": null,
+        "distancia_m": 773.7301002889947,
+        "tempo_min": 10.316401337186596,
+        "custo_reais": 0.0,
+        "emissoes_kg": 0.0
+      }
+    ],
+    "num_segmentos": 7,
+    "metricas_algoritmo": {
+      "comparacoes": 394923,
+      "vertices_visitados": 525,
+      "tempo_execucao_ms": 71.76780700683594,
+      "memoria_kb": 0.5234375
+    },
+    "tempo_calculo_total_s": 0.07184052467346191,
+    "rank_tempo": 3,
+    "rank_custo": 2,
+    "rank_emissoes": 2,
+    "pareto_optimal": true
+  },
+  {
+    "criterio": "Equilibrada",
+    "caminho_ids": [
+      "temp_fafire",
+      "stop_5982",
+      "stop_6031",
+      "stop_5939",
+      "stop_5741",
+      "stop_469",
+      "stop_358",
+      "stop_476",
+      "stop_477",
+      "stop_363",
+      "stop_364",
+      "stop_366",
+      "stop_367",
+      "stop_515",
+      "temp_nova_roma"
+    ],
+    "num_vertices": 15,
+    "tempo_min": 102.45313367020515,
+    "custo_reais": 12.299999999999999,
+    "distancia_km": 7.326195214752318,
+    "emissoes_kg": 0.08307681515895451,
+    "transferencias": 6,
+    "modais_usados": [
+      "caminhada",
+      "onibus"
+    ],
+    "linhas_onibus": [
+      "11",
+      "13"
+    ],
+    "num_embarques_onibus": 3,
+    "num_trechos_caminhada": 4,
+    "segmentos": [
+      {
+        "origem": "FAFIRE",
+        "destino": "010129",
+        "modal": "caminhada",
+        "linha": null,
+        "distancia_m": 4106.830359478916,
+        "tempo_min": 54.75773812638555,
+        "custo_reais": 0.0,
+        "emissoes_kg": 0.0
+      },
+      {
+        "origem": "010129",
+        "destino": "010130",
+        "modal": "onibus",
+        "linha": "13",
+        "distancia_m": 252.12597816703672,
+        "tempo_min": 1.0,
+        "custo_reais": 4.1,
+        "emissoes_kg": 0.02017007825336294
+      },
+      {
+        "origem": "010130",
+        "destino": "010006",
+        "modal": "caminhada",
+        "linha": null,
+        "distancia_m": 637.732440866892,
+        "tempo_min": 8.503099211558562,
+        "custo_reais": 0.0,
+        "emissoes_kg": 0.0
+      },
+      {
+        "origem": "010006",
+        "destino": "010007",
+        "modal": "onibus",
+        "linha": "11",
+        "distancia_m": 453.8203221838364,
+        "tempo_min": 1.5166666666667084,
+        "custo_reais": 4.1,
+        "emissoes_kg": 0.03630562577470692
+      },
+      {
+        "origem": "010007",
+        "destino": "010009",
+        "modal": "caminhada",
+        "linha": null,
+        "distancia_m": 769.4421246305828,
+        "tempo_min": 10.25922832840777,
+        "custo_reais": 0.0,
+        "emissoes_kg": 0.0
+      },
+      {
+        "origem": "010009",
+        "destino": "010010",
+        "modal": "onibus",
+        "linha": "11",
+        "distancia_m": 332.5138891360582,
+        "tempo_min": 1.099999999999966,
+        "custo_reais": 4.1,
+        "emissoes_kg": 0.026601111130884654
+      },
+      {
+        "origem": "010010",
+        "destino": "Faculdade Nova Roma",
+        "modal": "caminhada",
+        "linha": null,
+        "distancia_m": 773.7301002889947,
+        "tempo_min": 10.316401337186596,
+        "custo_reais": 0.0,
+        "emissoes_kg": 0.0
+      }
+    ],
+    "num_segmentos": 7,
+    "metricas_algoritmo": {
+      "comparacoes": 394910,
+      "vertices_visitados": 525,
+      "tempo_execucao_ms": 105.53741455078125,
+      "memoria_kb": 0.5234375
+    },
+    "tempo_calculo_total_s": 0.10562586784362793,
+    "rank_tempo": 4,
+    "rank_custo": 3,
+    "rank_emissoes": 3,
+    "pareto_optimal": true
+  },
+  {
+    "criterio": "Menos Transferências",
+    "caminho_ids": [
+      "temp_fafire",
+      "stop_5982",
+      "stop_6031",
+      "stop_5939",
+      "stop_5741",
+      "stop_469",
+      "stop_358",
+      "stop_476",
+      "stop_477",
+      "stop_363",
+      "stop_364",
+      "stop_366",
+      "stop_367",
+      "stop_515",
+      "temp_nova_roma"
+    ],
+    "num_vertices": 15,
+    "tempo_min": 102.45313367020515,
+    "custo_reais": 12.299999999999999,
+    "distancia_km": 7.326195214752318,
+    "emissoes_kg": 0.08307681515895451,
+    "transferencias": 6,
+    "modais_usados": [
+      "caminhada",
+      "onibus"
+    ],
+    "linhas_onibus": [
+      "11",
+      "13"
+    ],
+    "num_embarques_onibus": 3,
+    "num_trechos_caminhada": 4,
+    "segmentos": [
+      {
+        "origem": "FAFIRE",
+        "destino": "010129",
+        "modal": "caminhada",
+        "linha": null,
+        "distancia_m": 4106.830359478916,
+        "tempo_min": 54.75773812638555,
+        "custo_reais": 0.0,
+        "emissoes_kg": 0.0
+      },
+      {
+        "origem": "010129",
+        "destino": "010130",
+        "modal": "onibus",
+        "linha": "13",
+        "distancia_m": 252.12597816703672,
+        "tempo_min": 1.0,
+        "custo_reais": 4.1,
+        "emissoes_kg": 0.02017007825336294
+      },
+      {
+        "origem": "010130",
+        "destino": "010006",
+        "modal": "caminhada",
+        "linha": null,
+        "distancia_m": 637.732440866892,
+        "tempo_min": 8.503099211558562,
+        "custo_reais": 0.0,
+        "emissoes_kg": 0.0
+      },
+      {
+        "origem": "010006",
+        "destino": "010007",
+        "modal": "onibus",
+        "linha": "11",
+        "distancia_m": 453.8203221838364,
+        "tempo_min": 1.5166666666667084,
+        "custo_reais": 4.1,
+        "emissoes_kg": 0.03630562577470692
+      },
+      {
+        "origem": "010007",
+        "destino": "010009",
+        "modal": "caminhada",
+        "linha": null,
+        "distancia_m": 769.4421246305828,
+        "tempo_min": 10.25922832840777,
+        "custo_reais": 0.0,
+        "emissoes_kg": 0.0
+      },
+      {
+        "origem": "010009",
+        "destino": "010010",
+        "modal": "onibus",
+        "linha": "11",
+        "distancia_m": 332.5138891360582,
+        "tempo_min": 1.099999999999966,
+        "custo_reais": 4.1,
+        "emissoes_kg": 0.026601111130884654
+      },
+      {
+        "origem": "010010",
+        "destino": "Faculdade Nova Roma",
+        "modal": "caminhada",
+        "linha": null,
+        "distancia_m": 773.7301002889947,
+        "tempo_min": 10.316401337186596,
+        "custo_reais": 0.0,
+        "emissoes_kg": 0.0
+      }
+    ],
+    "num_segmentos": 7,
+    "metricas_algoritmo": {
+      "comparacoes": 394910,
+      "vertices_visitados": 525,
+      "tempo_execucao_ms": 77.89802551269531,
+      "memoria_kb": 0.5234375
+    },
+    "tempo_calculo_total_s": 0.07801985740661621,
+    "rank_tempo": 5,
+    "rank_custo": 4,
+    "rank_emissoes": 4,
+    "pareto_optimal": true
+  }
+];
+        const origemCoords = [-8.058243, -34.889299];
+        const destinoCoords = [-8.117489, -34.900216];
+        
+        console.log(`✅ ${rotas.length} rotas carregadas`);
+        
+        // Cores para as rotas
+        const cores = ['#3388ff', '#ff3333', '#33ff33', '#ff33ff', '#ffaa00', '#00ffff'];
+        
+        // ===== MAPA =====
+        console.log('🗺️ Criando mapa...');
+        const map = L.map('map').setView(origemCoords, 13);
+        
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+        
+        // Marcador de origem
+        L.marker(origemCoords).addTo(map)
+            .bindPopup('<b>FAFIRE (Av. Conde da Boa Vista, 921)</b>')
+            .openPopup();
+        
+        // Marcador de destino
+        L.marker(destinoCoords).addTo(map)
+            .bindPopup('<b>Faculdade Nova Roma (Rua Padre Carapuceiro, 590)</b>');
+        
+        // Adicionar rotas (linhas retas - simplificado)
+        rotas.forEach((rota, idx) => {
+            const cor = cores[idx % cores.length];
+            
+            const pontos = [origemCoords, destinoCoords];
+            
+            const popupContent = `
+                <div style="max-width: 250px;">
+                    <h3 style="color: ${cor};">Rota ${idx + 1}: ${rota.criterio}</h3>
+                    <p><strong>Tempo:</strong> ${rota.tempo_min.toFixed(0)} min</p>
+                    <p><strong>Custo:</strong> R$ ${rota.custo_reais.toFixed(2)}</p>
+                    <p><strong>Distância:</strong> ${rota.distancia_km.toFixed(2)} km</p>
+                    <p><strong>Emissões:</strong> ${rota.emissoes_kg.toFixed(2)} kg CO₂</p>
+                    ${rota.pareto_optimal ? '<p style="color: gold; font-weight: bold;">⭐ Pareto Optimal</p>' : ''}
+                </div>
+            `;
+            
+            L.polyline(pontos, {
+                color: cor,
+                weight: 4,
+                opacity: 0.7
+            }).addTo(map).bindPopup(popupContent);
+            
+            // Adicionar à legenda
+            document.getElementById('legend-items').innerHTML += `
+                <div class="legend-item">
+                    <div class="legend-color" style="background: ${cor};"></div>
+                    <span>${rota.pareto_optimal ? '⭐ ' : ''}Rota ${idx + 1}: ${rota.criterio}</span>
+                </div>
+            `;
+        });
+        
+        console.log('✅ Mapa criado');
+        
+        // ===== GRÁFICOS =====
+        console.log('📊 Criando gráficos...');
+        
+        // Gráfico de Tempo
+        new Chart(document.getElementById('tempoChart'), {
+            type: 'bar',
+            data: {
+                labels: rotas.map((r, i) => `R${i+1}`),
+                datasets: [{
+                    label: 'Tempo (min)',
+                    data: rotas.map(r => r.tempo_min),
+                    backgroundColor: cores,
+                    borderColor: cores,
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                }
+            }
+        });
+        
+        // Gráfico de Custo
+        new Chart(document.getElementById('custoChart'), {
+            type: 'doughnut',
+            data: {
+                labels: rotas.map((r, i) => `R${i+1}: ${r.criterio}`),
+                datasets: [{
+                    data: rotas.map(r => r.custo_reais),
+                    backgroundColor: cores
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+        
+        // Gráfico Multi-Critério (Radar)
+        new Chart(document.getElementById('multiChart'), {
+            type: 'radar',
+            data: {
+                labels: ['Tempo', 'Custo', 'Distância', 'Emissões', 'Transferências'],
+                datasets: rotas.slice(0, 4).map((rota, idx) => ({
+                    label: `R${idx+1}: ${rota.criterio}`,
+                    data: [
+                        rota.tempo_min / 100,
+                        rota.custo_reais / 10,
+                        rota.distancia_km,
+                        rota.emissoes_kg * 10,
+                        rota.transferencias
+                    ],
+                    backgroundColor: cores[idx] + '33',
+                    borderColor: cores[idx],
+                    borderWidth: 2
+                })))
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+        
+        console.log('✅ Gráficos criados');
+        
+        // ===== TABELA =====
+        console.log('📋 Criando tabela...');
+        const tableBody = document.getElementById('routesTableBody');
+        
+        rotas.forEach((rota, idx) => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${idx + 1}</td>
+                <td>${rota.criterio}</td>
+                <td>${rota.tempo_min.toFixed(1)} min</td>
+                <td>R$ ${rota.custo_reais.toFixed(2)}</td>
+                <td>${rota.distancia_km.toFixed(2)} km</td>
+                <td>${rota.emissoes_kg.toFixed(2)} kg</td>
+                <td>${rota.pareto_optimal ? '<span class="pareto-badge">⭐ Pareto</span>' : '-'}</td>
+                <td><button class="route-btn" onclick="toggleRouteDetail(${idx})"><i class="fas fa-eye"></i> Ver</button></td>
+            `;
+            tableBody.appendChild(row);
+            
+            // Criar detalhes da rota
+            const detailDiv = document.createElement('div');
+            detailDiv.id = `route-detail-${idx}`;
+            detailDiv.className = 'route-detail';
+            
+            let segmentosHtml = '';
+            rota.segmentos.forEach((seg, i) => {
+                const icon = seg.modal === 'caminhada' ? '🚶' : '🚌';
+                const linha = seg.linha ? ` (Linha ${seg.linha})` : '';
+                
+                segmentosHtml += `
+                    <div class="segment">
+                        <div class="segment-header">
+                            <span class="segment-icon">${icon}</span>
+                            <span>${seg.modal.toUpperCase()}${linha}</span>
+                        </div>
+                        <div><strong>De:</strong> ${seg.origem}</div>
+                        <div><strong>Para:</strong> ${seg.destino}</div>
+                        <div class="segment-details">
+                            <div><i class="fas fa-arrows-alt-h"></i> ${seg.distancia_m.toFixed(0)}m</div>
+                            <div><i class="fas fa-clock"></i> ${seg.tempo_min.toFixed(0)} min</div>
+                            <div><i class="fas fa-dollar-sign"></i> R$ ${seg.custo_reais.toFixed(2)}</div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            detailDiv.innerHTML = `
+                <h3>Detalhamento - Rota ${idx + 1}</h3>
+                <p><strong>Linhas de ônibus:</strong> ${rota.linhas_onibus.join(', ') || 'Nenhuma'}</p>
+                <p><strong>Total de segmentos:</strong> ${rota.num_segmentos}</p>
+                ${segmentosHtml}
+            `;
+            
+            document.getElementById('routeDetails').appendChild(detailDiv);
+        });
+        
+        console.log('✅ Tabela criada');
+        
+        function toggleRouteDetail(idx) {
+            const detail = document.getElementById(`route-detail-${idx}`);
+            const isActive = detail.classList.contains('active');
+            
+            // Fechar todos
+            document.querySelectorAll('.route-detail').forEach(d => d.classList.remove('active'));
+            
+            // Abrir se estava fechado
+            if (!isActive) {
+                detail.classList.add('active');
+                detail.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+        }
+        
+        console.log('🎉 Dashboard completo!');
+    </script>
+</body>
+</html>

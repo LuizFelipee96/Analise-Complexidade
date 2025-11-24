@@ -1,0 +1,803 @@
+{
+  "metadata": {
+    "timestamp": "2025-11-17T09:47:55.609901",
+    "sistema": "ITERUM v1.0",
+    "num_rotas": 6
+  },
+  "rotas": [
+    {
+      "criterio": "Mais Rápida",
+      "caminho_ids": [
+        "temp_fafire",
+        "stop_16871",
+        "stop_6016",
+        "stop_5848",
+        "stop_5849",
+        "stop_5739",
+        "stop_358",
+        "stop_476",
+        "stop_477",
+        "stop_363",
+        "stop_364",
+        "stop_366",
+        "stop_367",
+        "stop_515",
+        "temp_nova_roma"
+      ],
+      "num_vertices": 15,
+      "tempo_min": 99.13121577981698,
+      "custo_reais": 24.6,
+      "distancia_km": 8.058392406378195,
+      "emissoes_kg": 0.30938409783135384,
+      "transferencias": 8,
+      "modais_usados": [
+        "caminhada",
+        "onibus"
+      ],
+      "linhas_onibus": [
+        "11",
+        "13"
+      ],
+      "num_embarques_onibus": 4,
+      "num_trechos_caminhada": 5,
+      "segmentos": [
+        {
+          "origem": "FAFIRE",
+          "destino": "180168",
+          "modal": "caminhada",
+          "linha": null,
+          "distancia_m": 1257.6408436373886,
+          "tempo_min": 16.768544581831847,
+          "custo_reais": 0.0,
+          "emissoes_kg": 0.0
+        },
+        {
+          "origem": "180168",
+          "destino": "010001",
+          "modal": "onibus",
+          "linha": "11",
+          "distancia_m": 2828.8410334049922,
+          "tempo_min": 9.633333333333383,
+          "custo_reais": 12.299999999999999,
+          "emissoes_kg": 0.22630728267239936
+        },
+        {
+          "origem": "010001",
+          "destino": "010129",
+          "modal": "caminhada",
+          "linha": null,
+          "distancia_m": 752.5456740624113,
+          "tempo_min": 10.033942320832152,
+          "custo_reais": 0.0,
+          "emissoes_kg": 0.0
+        },
+        {
+          "origem": "010129",
+          "destino": "010130",
+          "modal": "onibus",
+          "linha": "13",
+          "distancia_m": 252.12597816703672,
+          "tempo_min": 1.0,
+          "custo_reais": 4.1,
+          "emissoes_kg": 0.02017007825336294
+        },
+        {
+          "origem": "010130",
+          "destino": "010006",
+          "modal": "caminhada",
+          "linha": null,
+          "distancia_m": 637.732440866892,
+          "tempo_min": 8.503099211558562,
+          "custo_reais": 0.0,
+          "emissoes_kg": 0.0
+        },
+        {
+          "origem": "010006",
+          "destino": "010007",
+          "modal": "onibus",
+          "linha": "11",
+          "distancia_m": 453.8203221838364,
+          "tempo_min": 1.5166666666667084,
+          "custo_reais": 4.1,
+          "emissoes_kg": 0.03630562577470692
+        },
+        {
+          "origem": "010007",
+          "destino": "010009",
+          "modal": "caminhada",
+          "linha": null,
+          "distancia_m": 769.4421246305828,
+          "tempo_min": 10.25922832840777,
+          "custo_reais": 0.0,
+          "emissoes_kg": 0.0
+        },
+        {
+          "origem": "010009",
+          "destino": "010010",
+          "modal": "onibus",
+          "linha": "11",
+          "distancia_m": 332.5138891360582,
+          "tempo_min": 1.099999999999966,
+          "custo_reais": 4.1,
+          "emissoes_kg": 0.026601111130884654
+        },
+        {
+          "origem": "010010",
+          "destino": "Faculdade Nova Roma",
+          "modal": "caminhada",
+          "linha": null,
+          "distancia_m": 773.7301002889947,
+          "tempo_min": 10.316401337186596,
+          "custo_reais": 0.0,
+          "emissoes_kg": 0.0
+        }
+      ],
+      "num_segmentos": 9,
+      "metricas_algoritmo": {
+        "comparacoes": 391628,
+        "vertices_visitados": 512,
+        "tempo_execucao_ms": 80.09099960327148,
+        "memoria_kb": 0.5234375
+      },
+      "tempo_calculo_total_s": 0.08019495010375977,
+      "rank_tempo": 1,
+      "rank_custo": 5,
+      "rank_emissoes": 5,
+      "pareto_optimal": true
+    },
+    {
+      "criterio": "Mais Econômica",
+      "caminho_ids": [
+        "temp_fafire",
+        "stop_5982",
+        "stop_6031",
+        "stop_5939",
+        "stop_5741",
+        "stop_469",
+        "stop_358",
+        "stop_476",
+        "stop_477",
+        "stop_363",
+        "stop_364",
+        "stop_366",
+        "stop_367",
+        "stop_515",
+        "temp_nova_roma"
+      ],
+      "num_vertices": 15,
+      "tempo_min": 102.45313367020515,
+      "custo_reais": 12.299999999999999,
+      "distancia_km": 7.326195214752318,
+      "emissoes_kg": 0.08307681515895451,
+      "transferencias": 6,
+      "modais_usados": [
+        "caminhada",
+        "onibus"
+      ],
+      "linhas_onibus": [
+        "11",
+        "13"
+      ],
+      "num_embarques_onibus": 3,
+      "num_trechos_caminhada": 4,
+      "segmentos": [
+        {
+          "origem": "FAFIRE",
+          "destino": "010129",
+          "modal": "caminhada",
+          "linha": null,
+          "distancia_m": 4106.830359478916,
+          "tempo_min": 54.75773812638555,
+          "custo_reais": 0.0,
+          "emissoes_kg": 0.0
+        },
+        {
+          "origem": "010129",
+          "destino": "010130",
+          "modal": "onibus",
+          "linha": "13",
+          "distancia_m": 252.12597816703672,
+          "tempo_min": 1.0,
+          "custo_reais": 4.1,
+          "emissoes_kg": 0.02017007825336294
+        },
+        {
+          "origem": "010130",
+          "destino": "010006",
+          "modal": "caminhada",
+          "linha": null,
+          "distancia_m": 637.732440866892,
+          "tempo_min": 8.503099211558562,
+          "custo_reais": 0.0,
+          "emissoes_kg": 0.0
+        },
+        {
+          "origem": "010006",
+          "destino": "010007",
+          "modal": "onibus",
+          "linha": "11",
+          "distancia_m": 453.8203221838364,
+          "tempo_min": 1.5166666666667084,
+          "custo_reais": 4.1,
+          "emissoes_kg": 0.03630562577470692
+        },
+        {
+          "origem": "010007",
+          "destino": "010009",
+          "modal": "caminhada",
+          "linha": null,
+          "distancia_m": 769.4421246305828,
+          "tempo_min": 10.25922832840777,
+          "custo_reais": 0.0,
+          "emissoes_kg": 0.0
+        },
+        {
+          "origem": "010009",
+          "destino": "010010",
+          "modal": "onibus",
+          "linha": "11",
+          "distancia_m": 332.5138891360582,
+          "tempo_min": 1.099999999999966,
+          "custo_reais": 4.1,
+          "emissoes_kg": 0.026601111130884654
+        },
+        {
+          "origem": "010010",
+          "destino": "Faculdade Nova Roma",
+          "modal": "caminhada",
+          "linha": null,
+          "distancia_m": 773.7301002889947,
+          "tempo_min": 10.316401337186596,
+          "custo_reais": 0.0,
+          "emissoes_kg": 0.0
+        }
+      ],
+      "num_segmentos": 7,
+      "metricas_algoritmo": {
+        "comparacoes": 394870,
+        "vertices_visitados": 525,
+        "tempo_execucao_ms": 89.49875831604004,
+        "memoria_kb": 0.5234375
+      },
+      "tempo_calculo_total_s": 0.08959174156188965,
+      "rank_tempo": 2,
+      "rank_custo": 1,
+      "rank_emissoes": 1,
+      "pareto_optimal": true
+    },
+    {
+      "criterio": "Menos Caminhada",
+      "caminho_ids": [
+        "temp_fafire",
+        "stop_5982",
+        "stop_5984",
+        "stop_5985",
+        "stop_5820",
+        "stop_5824",
+        "stop_5825",
+        "stop_5929",
+        "stop_5735",
+        "stop_6089",
+        "stop_358",
+        "stop_359",
+        "stop_360",
+        "stop_361",
+        "stop_362",
+        "stop_363",
+        "stop_364",
+        "stop_365",
+        "stop_366",
+        "stop_367",
+        "stop_368",
+        "stop_524",
+        "temp_nova_roma"
+      ],
+      "num_vertices": 23,
+      "tempo_min": 131.3702770014522,
+      "custo_reais": 81.99999999999999,
+      "distancia_km": 9.02903775824521,
+      "emissoes_kg": 0.7177013586509038,
+      "transferencias": 2,
+      "modais_usados": [
+        "caminhada",
+        "onibus"
+      ],
+      "linhas_onibus": [
+        "101",
+        "11",
+        "13",
+        "14",
+        "166",
+        "170",
+        "39",
+        "521"
+      ],
+      "num_embarques_onibus": 9,
+      "num_trechos_caminhada": 2,
+      "segmentos": [
+        {
+          "origem": "FAFIRE",
+          "destino": "180320",
+          "modal": "caminhada",
+          "linha": null,
+          "distancia_m": 24.190003523203284,
+          "tempo_min": 0.3225333803093771,
+          "custo_reais": 0,
+          "emissoes_kg": 0
+        },
+        {
+          "origem": "180320",
+          "destino": "180322",
+          "modal": "onibus",
+          "linha": "14",
+          "distancia_m": 262.53444109972025,
+          "tempo_min": 1,
+          "custo_reais": 4.1,
+          "emissoes_kg": 0.02100275528797762
+        },
+        {
+          "origem": "180322",
+          "destino": "180323",
+          "modal": "onibus",
+          "linha": "170",
+          "distancia_m": 416.6150242634616,
+          "tempo_min": 1,
+          "custo_reais": 4.1,
+          "emissoes_kg": 0.03332920194107693
+        },
+        {
+          "origem": "180323",
+          "destino": "180140",
+          "modal": "onibus",
+          "linha": "521",
+          "distancia_m": 415.71507147173526,
+          "tempo_min": 1.216666666666697,
+          "custo_reais": 4.1,
+          "emissoes_kg": 0.03325720571773882
+        },
+        {
+          "origem": "180140",
+          "destino": "180144",
+          "modal": "onibus",
+          "linha": "101",
+          "distancia_m": 235.15980295931897,
+          "tempo_min": 1,
+          "custo_reais": 4.1,
+          "emissoes_kg": 0.018812784236745518
+        },
+        {
+          "origem": "180144",
+          "destino": "180145",
+          "modal": "onibus",
+          "linha": "166",
+          "distancia_m": 420.74693601134857,
+          "tempo_min": 1,
+          "custo_reais": 4.1,
+          "emissoes_kg": 0.03365975488090788
+        },
+        {
+          "origem": "180145",
+          "destino": "180523",
+          "modal": "onibus",
+          "linha": "13",
+          "distancia_m": 248.50700172431453,
+          "tempo_min": 1.283333333333303,
+          "custo_reais": 4.1,
+          "emissoes_kg": 0.019880560137945164
+        },
+        {
+          "origem": "180523",
+          "destino": "180048",
+          "modal": "onibus",
+          "linha": "39",
+          "distancia_m": 306.67419934801353,
+          "tempo_min": 1.0166666666666515,
+          "custo_reais": 4.1,
+          "emissoes_kg": 0.024533935947841083
+        },
+        {
+          "origem": "180048",
+          "destino": "010001",
+          "modal": "onibus",
+          "linha": "14",
+          "distancia_m": 2496.0733111647496,
+          "tempo_min": 8.03333333333336,
+          "custo_reais": 8.2,
+          "emissoes_kg": 0.19968586489318002
+        },
+        {
+          "origem": "010001",
+          "destino": "010179",
+          "modal": "onibus",
+          "linha": "11",
+          "distancia_m": 4169.241195093635,
+          "tempo_min": 15.050000000000011,
+          "custo_reais": 45.10000000000001,
+          "emissoes_kg": 0.33353929560749074
+        },
+        {
+          "origem": "010179",
+          "destino": "Faculdade Nova Roma",
+          "modal": "caminhada",
+          "linha": null,
+          "distancia_m": 33.580771585710096,
+          "tempo_min": 0.44774362114280125,
+          "custo_reais": 0,
+          "emissoes_kg": 0
+        }
+      ],
+      "num_segmentos": 11,
+      "metricas_algoritmo": {
+        "comparacoes": 405562,
+        "vertices_visitados": 533,
+        "tempo_execucao_ms": 110.3353500366211,
+        "memoria_kb": 0.5234375
+      },
+      "tempo_calculo_total_s": 0.11050915718078613,
+      "rank_tempo": 6,
+      "rank_custo": 6,
+      "rank_emissoes": 6,
+      "pareto_optimal": false
+    },
+    {
+      "criterio": "Mais Sustentável",
+      "caminho_ids": [
+        "temp_fafire",
+        "stop_5982",
+        "stop_6031",
+        "stop_5939",
+        "stop_5741",
+        "stop_469",
+        "stop_358",
+        "stop_476",
+        "stop_477",
+        "stop_363",
+        "stop_364",
+        "stop_366",
+        "stop_367",
+        "stop_515",
+        "temp_nova_roma"
+      ],
+      "num_vertices": 15,
+      "tempo_min": 102.45313367020515,
+      "custo_reais": 12.299999999999999,
+      "distancia_km": 7.326195214752318,
+      "emissoes_kg": 0.08307681515895451,
+      "transferencias": 6,
+      "modais_usados": [
+        "caminhada",
+        "onibus"
+      ],
+      "linhas_onibus": [
+        "11",
+        "13"
+      ],
+      "num_embarques_onibus": 3,
+      "num_trechos_caminhada": 4,
+      "segmentos": [
+        {
+          "origem": "FAFIRE",
+          "destino": "010129",
+          "modal": "caminhada",
+          "linha": null,
+          "distancia_m": 4106.830359478916,
+          "tempo_min": 54.75773812638555,
+          "custo_reais": 0.0,
+          "emissoes_kg": 0.0
+        },
+        {
+          "origem": "010129",
+          "destino": "010130",
+          "modal": "onibus",
+          "linha": "13",
+          "distancia_m": 252.12597816703672,
+          "tempo_min": 1.0,
+          "custo_reais": 4.1,
+          "emissoes_kg": 0.02017007825336294
+        },
+        {
+          "origem": "010130",
+          "destino": "010006",
+          "modal": "caminhada",
+          "linha": null,
+          "distancia_m": 637.732440866892,
+          "tempo_min": 8.503099211558562,
+          "custo_reais": 0.0,
+          "emissoes_kg": 0.0
+        },
+        {
+          "origem": "010006",
+          "destino": "010007",
+          "modal": "onibus",
+          "linha": "11",
+          "distancia_m": 453.8203221838364,
+          "tempo_min": 1.5166666666667084,
+          "custo_reais": 4.1,
+          "emissoes_kg": 0.03630562577470692
+        },
+        {
+          "origem": "010007",
+          "destino": "010009",
+          "modal": "caminhada",
+          "linha": null,
+          "distancia_m": 769.4421246305828,
+          "tempo_min": 10.25922832840777,
+          "custo_reais": 0.0,
+          "emissoes_kg": 0.0
+        },
+        {
+          "origem": "010009",
+          "destino": "010010",
+          "modal": "onibus",
+          "linha": "11",
+          "distancia_m": 332.5138891360582,
+          "tempo_min": 1.099999999999966,
+          "custo_reais": 4.1,
+          "emissoes_kg": 0.026601111130884654
+        },
+        {
+          "origem": "010010",
+          "destino": "Faculdade Nova Roma",
+          "modal": "caminhada",
+          "linha": null,
+          "distancia_m": 773.7301002889947,
+          "tempo_min": 10.316401337186596,
+          "custo_reais": 0.0,
+          "emissoes_kg": 0.0
+        }
+      ],
+      "num_segmentos": 7,
+      "metricas_algoritmo": {
+        "comparacoes": 394923,
+        "vertices_visitados": 525,
+        "tempo_execucao_ms": 71.76780700683594,
+        "memoria_kb": 0.5234375
+      },
+      "tempo_calculo_total_s": 0.07184052467346191,
+      "rank_tempo": 3,
+      "rank_custo": 2,
+      "rank_emissoes": 2,
+      "pareto_optimal": true
+    },
+    {
+      "criterio": "Equilibrada",
+      "caminho_ids": [
+        "temp_fafire",
+        "stop_5982",
+        "stop_6031",
+        "stop_5939",
+        "stop_5741",
+        "stop_469",
+        "stop_358",
+        "stop_476",
+        "stop_477",
+        "stop_363",
+        "stop_364",
+        "stop_366",
+        "stop_367",
+        "stop_515",
+        "temp_nova_roma"
+      ],
+      "num_vertices": 15,
+      "tempo_min": 102.45313367020515,
+      "custo_reais": 12.299999999999999,
+      "distancia_km": 7.326195214752318,
+      "emissoes_kg": 0.08307681515895451,
+      "transferencias": 6,
+      "modais_usados": [
+        "caminhada",
+        "onibus"
+      ],
+      "linhas_onibus": [
+        "11",
+        "13"
+      ],
+      "num_embarques_onibus": 3,
+      "num_trechos_caminhada": 4,
+      "segmentos": [
+        {
+          "origem": "FAFIRE",
+          "destino": "010129",
+          "modal": "caminhada",
+          "linha": null,
+          "distancia_m": 4106.830359478916,
+          "tempo_min": 54.75773812638555,
+          "custo_reais": 0.0,
+          "emissoes_kg": 0.0
+        },
+        {
+          "origem": "010129",
+          "destino": "010130",
+          "modal": "onibus",
+          "linha": "13",
+          "distancia_m": 252.12597816703672,
+          "tempo_min": 1.0,
+          "custo_reais": 4.1,
+          "emissoes_kg": 0.02017007825336294
+        },
+        {
+          "origem": "010130",
+          "destino": "010006",
+          "modal": "caminhada",
+          "linha": null,
+          "distancia_m": 637.732440866892,
+          "tempo_min": 8.503099211558562,
+          "custo_reais": 0.0,
+          "emissoes_kg": 0.0
+        },
+        {
+          "origem": "010006",
+          "destino": "010007",
+          "modal": "onibus",
+          "linha": "11",
+          "distancia_m": 453.8203221838364,
+          "tempo_min": 1.5166666666667084,
+          "custo_reais": 4.1,
+          "emissoes_kg": 0.03630562577470692
+        },
+        {
+          "origem": "010007",
+          "destino": "010009",
+          "modal": "caminhada",
+          "linha": null,
+          "distancia_m": 769.4421246305828,
+          "tempo_min": 10.25922832840777,
+          "custo_reais": 0.0,
+          "emissoes_kg": 0.0
+        },
+        {
+          "origem": "010009",
+          "destino": "010010",
+          "modal": "onibus",
+          "linha": "11",
+          "distancia_m": 332.5138891360582,
+          "tempo_min": 1.099999999999966,
+          "custo_reais": 4.1,
+          "emissoes_kg": 0.026601111130884654
+        },
+        {
+          "origem": "010010",
+          "destino": "Faculdade Nova Roma",
+          "modal": "caminhada",
+          "linha": null,
+          "distancia_m": 773.7301002889947,
+          "tempo_min": 10.316401337186596,
+          "custo_reais": 0.0,
+          "emissoes_kg": 0.0
+        }
+      ],
+      "num_segmentos": 7,
+      "metricas_algoritmo": {
+        "comparacoes": 394910,
+        "vertices_visitados": 525,
+        "tempo_execucao_ms": 105.53741455078125,
+        "memoria_kb": 0.5234375
+      },
+      "tempo_calculo_total_s": 0.10562586784362793,
+      "rank_tempo": 4,
+      "rank_custo": 3,
+      "rank_emissoes": 3,
+      "pareto_optimal": true
+    },
+    {
+      "criterio": "Menos Transferências",
+      "caminho_ids": [
+        "temp_fafire",
+        "stop_5982",
+        "stop_6031",
+        "stop_5939",
+        "stop_5741",
+        "stop_469",
+        "stop_358",
+        "stop_476",
+        "stop_477",
+        "stop_363",
+        "stop_364",
+        "stop_366",
+        "stop_367",
+        "stop_515",
+        "temp_nova_roma"
+      ],
+      "num_vertices": 15,
+      "tempo_min": 102.45313367020515,
+      "custo_reais": 12.299999999999999,
+      "distancia_km": 7.326195214752318,
+      "emissoes_kg": 0.08307681515895451,
+      "transferencias": 6,
+      "modais_usados": [
+        "caminhada",
+        "onibus"
+      ],
+      "linhas_onibus": [
+        "11",
+        "13"
+      ],
+      "num_embarques_onibus": 3,
+      "num_trechos_caminhada": 4,
+      "segmentos": [
+        {
+          "origem": "FAFIRE",
+          "destino": "010129",
+          "modal": "caminhada",
+          "linha": null,
+          "distancia_m": 4106.830359478916,
+          "tempo_min": 54.75773812638555,
+          "custo_reais": 0.0,
+          "emissoes_kg": 0.0
+        },
+        {
+          "origem": "010129",
+          "destino": "010130",
+          "modal": "onibus",
+          "linha": "13",
+          "distancia_m": 252.12597816703672,
+          "tempo_min": 1.0,
+          "custo_reais": 4.1,
+          "emissoes_kg": 0.02017007825336294
+        },
+        {
+          "origem": "010130",
+          "destino": "010006",
+          "modal": "caminhada",
+          "linha": null,
+          "distancia_m": 637.732440866892,
+          "tempo_min": 8.503099211558562,
+          "custo_reais": 0.0,
+          "emissoes_kg": 0.0
+        },
+        {
+          "origem": "010006",
+          "destino": "010007",
+          "modal": "onibus",
+          "linha": "11",
+          "distancia_m": 453.8203221838364,
+          "tempo_min": 1.5166666666667084,
+          "custo_reais": 4.1,
+          "emissoes_kg": 0.03630562577470692
+        },
+        {
+          "origem": "010007",
+          "destino": "010009",
+          "modal": "caminhada",
+          "linha": null,
+          "distancia_m": 769.4421246305828,
+          "tempo_min": 10.25922832840777,
+          "custo_reais": 0.0,
+          "emissoes_kg": 0.0
+        },
+        {
+          "origem": "010009",
+          "destino": "010010",
+          "modal": "onibus",
+          "linha": "11",
+          "distancia_m": 332.5138891360582,
+          "tempo_min": 1.099999999999966,
+          "custo_reais": 4.1,
+          "emissoes_kg": 0.026601111130884654
+        },
+        {
+          "origem": "010010",
+          "destino": "Faculdade Nova Roma",
+          "modal": "caminhada",
+          "linha": null,
+          "distancia_m": 773.7301002889947,
+          "tempo_min": 10.316401337186596,
+          "custo_reais": 0.0,
+          "emissoes_kg": 0.0
+        }
+      ],
+      "num_segmentos": 7,
+      "metricas_algoritmo": {
+        "comparacoes": 394910,
+        "vertices_visitados": 525,
+        "tempo_execucao_ms": 77.89802551269531,
+        "memoria_kb": 0.5234375
+      },
+      "tempo_calculo_total_s": 0.07801985740661621,
+      "rank_tempo": 5,
+      "rank_custo": 4,
+      "rank_emissoes": 4,
+      "pareto_optimal": true
+    }
+  ]
+}
