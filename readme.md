@@ -1,5 +1,7 @@
 python iterum_avancado.py
 
+Link do Dashboard atualizado publicado: https://l1nq.com/dashboarditerum
+
 # Rodar o dashboard
 
 python dashboard.py
