@@ -254,7 +254,7 @@ Exemplo:
 
 ## integrantes
 
-Gustavo Souto
-Luiz
-Guilherme Firpo
-Arthur Willyams
+- Gustavo Souto
+- Luiz
+- Guilherme Firpo
+- Arthur Willyams
