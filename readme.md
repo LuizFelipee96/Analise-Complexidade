@@ -251,3 +251,10 @@ Exemplo:
 > Este projeto está licenciado sob os termos da licença **MIT**. Consulte o arquivo `LICENSE` para mais detalhes.
 
 ---
+
+## integrantes
+
+Gustavo Souto
+Luiz
+Guilherme Firpo
+Arthur Willyams
